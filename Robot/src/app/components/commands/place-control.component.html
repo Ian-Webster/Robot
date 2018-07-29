@@ -1,0 +1,11 @@
+﻿<span>X Location</span>: <input type="number" [(ngModel)]="xLocation" />
+<span>Y Location</span>: <input type="number" [(ngModel)]="yLocation" />
+<span>Direction</span>:
+<div *ngFor="let heading of directionsValues">
+    <input type="radio"
+           [(ngModel)]="direction"
+           [checked]="direction==heading"
+           [value]="heading" />
+    {{directions[heading]}}<br>
+</div>
+<button value="Place" (click)="click();">Place</button>

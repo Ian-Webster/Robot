@@ -1,2 +1,13 @@
-﻿<h1>hello world!</h1>
-{{result}}
+﻿<h1>Robot</h1>
+<ul>
+    <li><place-control (commandClick)="commandClicked($event);"></place-control></li>
+    <li><command-control [commandType]="commandTypes.Move" (commandClick)="commandClicked($event);"></command-control></li>
+    <li><command-control [commandType]="commandTypes.Left" (commandClick)="commandClicked($event);"></command-control></li>
+    <li><command-control [commandType]="commandTypes.Right" (commandClick)="commandClicked($event);"></command-control></li>
+    <li><command-control [commandType]="commandTypes.Report" (commandClick)="commandClicked($event);"></command-control></li>
+</ul>
+<button value="Execute" (click)="executeClick();">Execute</button>
+<h3>Command List</h3>
+<command-list [commandList]="service.commands"></command-list>
+<h3>Report List</h3>
+<report-list [reportList]="service.reports"></report-list>

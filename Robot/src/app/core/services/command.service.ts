@@ -20,6 +20,10 @@ export class CommandService {
         this.robotPlaced = false;
     }
 
+    test(): string {
+        return `${this.playArea.xLength}`;
+    }
+
     executeCommands(): boolean {
         if (_.isEmpty(this.commands)) {
             return false;

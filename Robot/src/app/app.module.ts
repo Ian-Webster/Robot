@@ -6,7 +6,16 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
+import { CommandControl } from './components/commands/command-control.component';
+import { CommandService } from './core/services/command.service';
+import { CommandServiceFactory } from './core/services/command-service.factory';
+import { PlaceControl } from './components/commands/place-control.component';
+import { CommandList } from './components/commands/command-list.component';
+import { ReportList } from './components/report/report-list.component';
+
 import { routing } from './app.router';
+import { PlaceCommand } from './core/models/place-command';
+
 
 @NgModule({
     imports: [
@@ -17,8 +26,13 @@ import { routing } from './app.router';
     ],
     declarations: [
         HomeComponent,
+        CommandControl,
+        PlaceControl,
+        CommandList,
+        ReportList,
         AppComponent
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    providers: [{ provide: CommandService, useFactory: CommandServiceFactory}]
 })
 export class AppModule { }
