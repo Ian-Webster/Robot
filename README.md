@@ -36,3 +36,8 @@ Project structure;
  - /src/app/css - currently unused
  - /src/app/images - currently unused
  - /src/app/tests - holds unit tests for the solution
+
+**To do /future improvements;**
+ - Investigate module loaders further (possibly switching to an alternative to WebPack?)
+ - Implement visual representation of the robot and the grid
+ - Further tidying up of the UI
