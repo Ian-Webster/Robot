@@ -20,33 +20,41 @@ export class CommandService {
         this.robotPlaced = false;
     }
 
-    test(): string {
-        return `${this.playArea.xLength}`;
-    }
-
     executeCommands(): boolean {
         if (_.isEmpty(this.commands)) {
             return false;
         }
 
+        //get a reference to the service for use in the foreach and remove commands
+        let self = this;
+
         //if the robot hasn't been placed we need to make sure the first command is a place command
         if (!this.robotPlaced) {
-            if (_.head(this.commands).commandType != CommandType.Place) {
-                return false;
-            }        
 
-            let initialPlaceCommand = _.head(this.commands) as PlaceCommand;
+            let firstValidPlaceCommandIndex: number = 0;
 
-            if (!this.robot.place(initialPlaceCommand.location)) {
+            let placeCommands = _.filter(this.commands, function (pc) { return pc.commandType == CommandType.Place });
+
+            if (_.isEmpty(placeCommands)) {
                 return false;
             }
-            //remove the intial place command - don't want to execute it twice
-            this.commands.shift();
-            this.robotPlaced = true;
-        }
 
-        //get a reference to the service for use in the foreach
-        let self = this;
+            for (let placeCommand of placeCommands) {
+                let pc = placeCommand as PlaceCommand;
+                if (this.robot.place(pc.location)) {
+                    this.robotPlaced = true;
+                    firstValidPlaceCommandIndex = this.commands.indexOf(placeCommand, 0);
+                    break;
+                }
+            }
+
+            if (!this.robotPlaced) {
+                return false;
+            }
+
+            //remove all the commands upto and including the first valid place command
+             _.remove(this.commands, command => self.commands.indexOf(command) <= firstValidPlaceCommandIndex);
+        }
 
         if (this.commands) {
             this.commands.forEach(function (command) {

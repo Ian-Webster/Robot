@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -12,6 +13,7 @@ import { CommandServiceFactory } from './core/services/command-service.factory';
 import { PlaceControl } from './components/commands/place-control.component';
 import { CommandList } from './components/commands/command-list.component';
 import { ReportList } from './components/report/report-list.component';
+import { PlayAreaControl } from './components/play-area/play-area.component';
 
 import { routing } from './app.router';
 import { PlaceCommand } from './core/models/place-command';
@@ -22,7 +24,8 @@ import { PlaceCommand } from './core/models/place-command';
         BrowserModule,
         FormsModule,
         HttpModule,
-        routing
+        routing,
+        NgbModule.forRoot()
     ],
     declarations: [
         HomeComponent,
@@ -30,6 +33,7 @@ import { PlaceCommand } from './core/models/place-command';
         PlaceControl,
         CommandList,
         ReportList,
+        PlayAreaControl,
         AppComponent
     ],
     bootstrap: [AppComponent],

@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { NgbModal, NgbModalRef, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { Command } from '../../core/models/command';
 import { CommandType } from '../../core/models/command-type';
@@ -23,15 +24,28 @@ export class PlaceControl implements OnInit {
     private xLocation: number;
     private yLocation: number;
     private direction: Direction;
+    private modal: NgbModalRef;
 
-    constructor() {
+    constructor(private modalService: NgbModal) {
         
     }
 
     ngOnInit(): void {
     }
 
-    public click() {
+    open(placeContent: any) {
+        this.reset();
+        this.modal = this.modalService.open(placeContent, { ariaLabelledBy: 'modal-basic-title' });
+    }
+
+    reset(): void {
+        this.xLocation = null;
+        this.yLocation = null;
+        this.direction = null;
+    }
+
+    public place() {        
         this.commandClick.emit(new PlaceCommand(new Location(this.xLocation, this.yLocation, this.direction)));
+        this.modal.close();
     }
 }

@@ -20,6 +20,7 @@
     <None Remove="src\app\components\commands\command-list.component.ts" />
     <None Remove="src\app\components\commands\place-control.component.ts" />
     <None Remove="src\app\components\home\home.component.ts" />
+    <None Remove="src\app\components\play-area\play-area.component.ts" />
     <None Remove="src\app\components\report\report-list.component.ts" />
     <None Remove="src\app\core\models\command-type.ts" />
     <None Remove="src\app\core\models\command.ts" />
@@ -56,6 +57,7 @@
     <TypeScriptCompile Include="src\app\components\commands\command-list.component.ts" />
     <TypeScriptCompile Include="src\app\components\commands\place-control.component.ts" />
     <TypeScriptCompile Include="src\app\components\home\home.component.ts" />
+    <TypeScriptCompile Include="src\app\components\play-area\play-area.component.ts" />
     <TypeScriptCompile Include="src\app\components\report\report-list.component.ts" />
     <TypeScriptCompile Include="src\app\core\models\command-type.ts" />
     <TypeScriptCompile Include="src\app\core\models\command.ts" />

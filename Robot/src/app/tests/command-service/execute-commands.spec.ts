@@ -37,12 +37,12 @@ describe("command service - execute commands", () => {
         expect(result).to.be.false;
     });
 
-    it("should return false if the first command isn't place", () => {
+    it("should return false if there are no place commands", () => {
 
         //arrange
         commandService.commands = new Array<Command>();
         commandService.commands.push(new Command(CommandType.Report));
-        commandService.commands.push(new Command(CommandType.Place));
+        commandService.commands.push(new Command(CommandType.Left));
 
         //act
         let result = commandService.executeCommands();
@@ -51,36 +51,40 @@ describe("command service - execute commands", () => {
         expect(result).to.be.false;
     });
 
-    it("should return false if the first command isn't a valid place", () => {
+    it("should return false if there are no valid place commands", () => {
 
         //arrange
-        commandService = new CommandService(playArea, robot);
         commandService.commands = new Array<Command>();
-        commandService.commands.push(new PlaceCommand(new Location(8, 8, Direction.North)));
-
-        //act
-        let result = commandService.executeCommands();
-
-        //assert
-        expect(result).to.be.false;
-    });
-
-    it("should ignore all commands if the first command isn't a valid place", () => {
-
-        //arrange
-
-        commandService.commands = new Array<Command>();
+        commandService.commands.push(new Command(CommandType.Left));
         commandService.commands.push(new PlaceCommand(new Location(8, 8, Direction.North)));
         commandService.commands.push(new Command(CommandType.Left));
+        commandService.commands.push(new PlaceCommand(new Location(8, 8, Direction.North)));
+
+        //act
+        let result = commandService.executeCommands();
+
+        //assert
+        expect(result).to.be.false;
+    });
+
+    it("should ignore all commands before the first valid place command", () => {
+
+        //arrange
+        commandService.commands = new Array<Command>();
+        commandService.commands.push(new Command(CommandType.Left));
         commandService.commands.push(new Command(CommandType.Move));
+        commandService.commands.push(new PlaceCommand(new Location(8, 8, Direction.North)));
         commandService.commands.push(new Command(CommandType.Report));
+        commandService.commands.push(new PlaceCommand(new Location(0, 0, Direction.North)));
 
         //act
         commandService.executeCommands();
 
         //assert
         expect(commandService.reports.length).to.equal(0);
-        expect(commandService.robot.currentLocation).to.be.undefined;
+        expect(commandService.robot.currentLocation.x).to.equal(0);
+        expect(commandService.robot.currentLocation.y).to.equal(0);
+        expect(commandService.robot.currentLocation.direction).to.equal(Direction.North);
     });
 
     it("should execute place commands", () => {

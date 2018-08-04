@@ -22,8 +22,26 @@ module.exports = {
             { test: /\.component.ts$/, loaders: 'angular2-template-loader' },
             { test: /\.ts$/, loaders: 'awesome-typescript-loader' },
             { test: /\.html$/, loaders: 'html-loader' },
-            { test: /\.css$/, loaders: 'css-loader' },
-            { test: /\.css$/, loaders: ExtractTextPlugin.extract({ fallback: "style-loader", use: "css-loader" }) }
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                })
+            },
+            {
+                test: /\.(gif|png|jpe?g|svg)$/i,
+                use: [
+                    'file-loader',
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {
+                            bypassOnDebug: true, // webpack@1.x
+                            disable: true, // webpack@2.x and newer
+                        },
+                    },
+                ],
+            }
         ]
     },
     resolve: {
@@ -32,6 +50,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html'
-        })
+        }),
+        new ExtractTextPlugin("styles.css")
     ]
 };
